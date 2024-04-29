@@ -72,16 +72,10 @@ namespace BARSV_Generator
             Document doc = app.Documents.Open(path,miss,readOnly);
            
             int a = 0;
-            for (int i = 0; i < doc.Paragraphs.Count; i++)
+            for (int i = 1; i < doc.Paragraphs.Count; i++)
             {
-                try
-                {
-                    doc.Paragraphs[i].Range.Text = WriteParagraph(doc.Paragraphs[i], ref dict);
-                }
-                catch
-                {
-                    continue;
-                }
+                 if (doc.Paragraphs[i].Range.Text == "\r\a") continue;
+                 doc.Paragraphs[i].Range.Text = WriteParagraph(doc.Paragraphs[i], ref dict);
             }
             doc.SaveAs2(Environment.CurrentDirectory + "\\Test1.docx");
             doc.Close();
